@@ -4,11 +4,12 @@ from turtle import Turtle, Screen
 t = Turtle()
 t.shape("turtle")
 t.width(3)
-t.speed(10)
+t.speed(0)
 w = Screen()
 w.colormode(255)
+t.hideturtle()
 
-lim = 100
+lim = 200
 
 
 def generate_random_color():
@@ -30,10 +31,13 @@ def draw_bowndary(t):
     t.pd()
 
 
-draw_bowndary(t)
+# draw_bowndary(t)
+t.pu()
+t.setpos(-(lim-20), -(lim-20))
+t.pd()
 
 t.dot(10, generate_random_color())
-while t.pos()[1] <= 90:
+while t.pos()[1] <= lim-10:
     if t.pos()[0] > lim-30:
         t.pu()
         t.setpos(-(lim-20), t.pos()[1]+20)
@@ -42,5 +46,6 @@ while t.pos()[1] <= 90:
         t.pu()
         t.forward(20)
         t.pd()
-    t.dot(10, generate_random_color())
+    if t.pos()[1] <= lim-10:
+        t.dot(10, generate_random_color())
 w.exitonclick()
