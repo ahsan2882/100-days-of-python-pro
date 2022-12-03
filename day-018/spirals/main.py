@@ -3,7 +3,7 @@ from random import randint
 
 t = Turtle()
 t.width(2)
-t.speed(10)
+t.speed(0)
 w = Screen()
 w.colormode(255)
 
@@ -28,7 +28,7 @@ def draw_spirograph(size_of_gap, t):
         size += size_of_gap
 
 
-draw_spirograph(10, t)
+draw_spirograph(2, t)
 
 
 w.exitonclick()
