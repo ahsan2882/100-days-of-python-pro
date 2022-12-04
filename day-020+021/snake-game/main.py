@@ -12,7 +12,6 @@ screen.bgcolor("black")
 screen.title("My Snake Game")
 user_diff = screen.textinput(
     title="Choose difficulty", prompt="Easy, Medium, Hard")
-print(user_diff)
 snake_player = Snake(screen=screen, difficulty=user_diff)
 food = Food(screen)
 score_manager = Scoreboard()
