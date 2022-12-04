@@ -31,7 +31,7 @@ boundaryY = (screen.window_height() / 2) - 20
 if user_diff.lower() == Difficulty.MEDIUM.value:
     speed = 500
 elif user_diff.lower() == Difficulty.HARD.value:
-    speed = 200
+    speed = 100
 
 while game_is_on:
     screen.update()
@@ -43,6 +43,11 @@ while game_is_on:
 
     if user_diff.lower() == Difficulty.MEDIUM.value or user_diff.lower() == Difficulty.HARD.value:
         if snake_player.head.xcor() > boundaryX or snake_player.head.xcor() < -boundaryX or snake_player.head.ycor() > boundaryY or snake_player.head.ycor() < -boundaryY:
+            game_is_on = False
+            score_manager.game_over()
+
+    for segment in snake_player.snake_body[1:]:
+        if snake_player.head.distance(segment) < 10:
             game_is_on = False
             score_manager.game_over()
 
