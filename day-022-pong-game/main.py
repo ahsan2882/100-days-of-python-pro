@@ -1,6 +1,7 @@
 from turtle import Screen
 from paddle import Paddle, PaddlePostion
 from boundary import Boundary
+from ball import Ball
 
 screen = Screen()
 screen.bgcolor('black')
@@ -8,6 +9,7 @@ screen.tracer(0)
 screen.title(titlestring='Pong')
 screen.setup(width=820, height=620)
 boundary = Boundary()
+ball = Ball()
 paddle1 = Paddle(PaddlePostion.LEFT)
 paddle2 = Paddle(PaddlePostion.RIGHT)
 
