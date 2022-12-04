@@ -7,7 +7,7 @@ LEFT = 180
 RIGHT = 0
 
 
-class Snake():
+class Snake:
     def __init__(self, screen, difficulty):
         self.snake_body = []
         self.screen = screen
@@ -16,7 +16,7 @@ class Snake():
         self.head = self.create_snake()
 
     def create_snake(self):
-        for i in range(8):
+        for i in range(3):
             snake = Turtle(shape="square")
             if i == 0:
                 snake.color("red")
@@ -69,3 +69,9 @@ class Snake():
         if self.head.heading() != LEFT:
             self.head.setheading(RIGHT)
             self.move()
+
+    def extend(self):
+        print("grow")
+        new_snake = Turtle(shape="square")
+        new_snake.goto(self.snake_body[-1].pos())
+        self.snake_body.append(new_snake)
