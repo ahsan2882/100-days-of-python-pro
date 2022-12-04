@@ -1,6 +1,7 @@
 from turtle import Screen
 from snake import Snake
 from food import Food
+from scoreboard import Scoreboard
 from difficulty import Difficulty
 
 
@@ -14,6 +15,7 @@ user_diff = screen.textinput(
 print(user_diff)
 snake_player = Snake(screen=screen, difficulty=user_diff)
 food = Food(screen)
+score_manager = Scoreboard()
 screen.listen()
 screen.onkeypress(snake_player.up, "Up")
 screen.onkeypress(snake_player.down, "Down")
@@ -35,5 +37,6 @@ while game_is_on:
     if snake_player.head.distance(food.pos()) < 15:
         food.refresh()
         snake_player.extend()
+        score_manager.increase_score()
 
 screen.exitGame()
