@@ -1,4 +1,5 @@
 from turtle import Turtle
+from random import choice
 
 
 class Ball(Turtle):
@@ -7,14 +8,16 @@ class Ball(Turtle):
         self.shape('circle')
         self.color('blue')
         self.penup()
-        self.x_move = 0.2
-        self.y_move = 0.2
-        # self.setheading(45)
+        # self.x_move = 0.2
+        # self.y_move = 0.2
+        self.setheading(45)
 
     def move(self):
-        newX = self.xcor() + self.x_move
-        newY = self.ycor() + self.y_move
-        self.goto(newX, newY)
+        self.forward(0.4)
 
-    def bounce(self):
-        self.y_move *= -1
+    def bounce(self, heading):
+        self.setheading(heading)
+
+    def reset(self):
+        self.home()
+        self.setheading(choice([45, 135, 225, 315]))

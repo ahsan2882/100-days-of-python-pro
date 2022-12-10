@@ -7,20 +7,34 @@ class PaddlePostion(enum.Enum):
     RIGHT = 350
 
 
-class Paddle(Turtle):
+class Paddle:
     def __init__(self, position):
-        super().__init__()
-        self.paddle_position = position
-        self.shape('square')
-        self.color('white')
-        self.shapesize(stretch_len=1, stretch_wid=5)
-        self.penup()
-        self.goto(self.paddle_position.value, 0)
+        self.paddle = self.createPaddle(position)
+
+    def createPaddle(self, position):
+        paddle = []
+        for i in range(5):
+            paddle_segment = Turtle(shape='square')
+            paddle_segment.color('white')
+            paddle_segment.penup()
+            paddle_segment.goto(position.value, (2-i)*20)
+            paddle.append(paddle_segment)
+
+        return paddle
 
     def move_up(self):
-        if self.ycor() < 240:
-            self.goto(self.xcor(), self.ycor()+10)
+        head = self.paddle[0]
+        if head.pos()[1] < 280:
+            for paddle_segment in range(len(self.paddle)-1, 0, -1):
+                self.paddle[paddle_segment].goto(
+                    self.paddle[paddle_segment-1].pos())
+            head.forward(20)
 
     def move_down(self):
-        if self.ycor() > -240:
-            self.goto(self.xcor(), self.ycor()-10)
+        head = self.paddle[-1]
+        if head.pos()[1] > -280:
+            for paddle_segment in range(0, len(self.paddle)-1, 1):
+                self.paddle[paddle_segment].goto(
+                    self.paddle[paddle_segment+1].pos()
+                )
+            head.back(20)
