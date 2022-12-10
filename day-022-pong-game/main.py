@@ -2,6 +2,7 @@ from turtle import Screen
 from paddle import Paddle, PaddlePostion
 from boundary import Boundary
 from ball import Ball
+from scoreboard import Scoreboard
 
 screen = Screen()
 screen.mode('logo')
@@ -23,6 +24,7 @@ screen.onkeypress(paddle2.move_up, 'Up')
 screen.onkeypress(paddle2.move_down, 'Down')
 player1_score = 0
 player2_score = 0
+scoreboard = Scoreboard()
 
 
 def hit_paddle(paddle) -> bool:
@@ -55,7 +57,7 @@ while is_game_on:
     elif (xcor < -380 and not hit_paddle(paddle1)):
         player2_score += 1
         ball.reset()
-        print({player2_score})
+        scoreboard.update_scoreboard(player1_score, player2_score)
 
     elif (329 < xcor < 331):
         if hit_paddle(paddle2):
@@ -64,7 +66,7 @@ while is_game_on:
     elif (xcor > 380 and not hit_paddle(paddle2)):
         player1_score += 1
         ball.reset()
-        print({player1_score})
+        scoreboard.update_scoreboard(player1_score, player2_score)
 
     screen.update()
 
