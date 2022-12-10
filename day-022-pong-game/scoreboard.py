@@ -9,16 +9,13 @@ class Scoreboard(Turtle):
         self.color("white")
         self.penup()
         self.hideturtle()
-        self.goto(0, 260)
         self.update_scoreboard(0, 0)
 
     def update_scoreboard(self, player1_score, player2_score):
         self.clear()
-        self.goto(0, 240)
-        self.write("Scoreboard\n", align=ALIGNMENT, font=FONT)
-        self.goto(0, 220)
-        self.write(f"Player 1: {player1_score}\n", align=ALIGNMENT,
+        self.goto(-100, 240)
+        self.write(player1_score, align=ALIGNMENT,
                    font=FONT)
-        self.goto(0, 200)
-        self.write(f"Player 2: {player2_score}\n", align=ALIGNMENT,
+        self.goto(100, 240)
+        self.write(player2_score, align=ALIGNMENT,
                    font=FONT)

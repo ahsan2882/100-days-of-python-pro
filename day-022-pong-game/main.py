@@ -30,6 +30,7 @@ scoreboard = Scoreboard()
 def hit_paddle(paddle) -> bool:
     for paddle_segment in paddle.paddle:
         if ball.distance(paddle_segment) < 23:
+            ball.increase_speed()
             return True
     return False
 
