@@ -1,8 +1,8 @@
 from turtle import Turtle
 from random import choice, randint
 COLORS = ["red", "orange", "yellow", "green", "blue", "purple"]
-STARTING_MOVE_DISTANCE = 5
-MOVE_INCREMENT = 10
+STARTING_MOVE_DISTANCE = 0.1
+MOVE_INCREMENT = 0.2
 
 
 class CarManager:
@@ -20,6 +20,12 @@ class CarManager:
                 car.hideturtle()
                 del car
                 self.create_car()
+
+    def increase_cars(self):
+        self.create_car()
+
+    def increase_speed(self):
+        self.speed += MOVE_INCREMENT
 
     def create_car(self):
         new_car = Turtle("square")

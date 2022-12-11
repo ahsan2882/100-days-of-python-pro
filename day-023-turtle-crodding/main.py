@@ -2,7 +2,6 @@ from turtle import Screen
 from player import Player
 from car_manager import CarManager
 from scoreboard import Scoreboard
-import time
 
 screen = Screen()
 screen.mode("logo")
@@ -20,12 +19,18 @@ screen.update()
 
 is_game_on = True
 while is_game_on:
-    time.sleep(0.1)
     if player.reach_end():
         # increase score level and car speed
         player.reset()
         scoreboard.increase_level()
+        carManager.increase_speed()
+    for car in carManager.cars:
+        if player.distance(car) < 20:
+            is_game_on = False
+            scoreboard.game_over()
     carManager.move_cars()
+    if scoreboard.level % 5 == 0:
+        carManager.increase_cars()
     carManager.manage_cars()
     screen.update()
 
