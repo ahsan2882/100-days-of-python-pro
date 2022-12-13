@@ -1,5 +1,5 @@
 from turtle import Turtle
-from os.path import exists, abspath
+from os.path import exists
 import pathlib
 ALIGNMENT = "center"
 FONT = ("Courier", 18, "normal")
