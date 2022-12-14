@@ -8,6 +8,7 @@ def button_clicked():
 windows = tk.Tk()
 windows.title("My first GUI")
 windows.minsize(width=500, height=300)
+windows.config(padx=20, pady=20)
 
 # Label
 my_label = tk.Label(text="I am a label", font=("Arial", 24, "bold"))
