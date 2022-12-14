@@ -1,28 +1,35 @@
 import tkinter as tk
 
-windows = tk.Tk()
-windows.title("My first GUI")
-windows.minsize(width=500, height=300)
-
-my_label = tk.Label(text="I am a label", font=("Arial", 24, "bold"))
-my_label.pack()
-my_label["text"] = "New text"
-my_label.config(text="New text")
-
-
-input = tk.Entry(width=10)
-input.pack()
-
 
 def button_clicked():
     my_label["text"] = input.get()
 
 
+windows = tk.Tk()
+windows.title("My first GUI")
+windows.minsize(width=500, height=300)
+
+# Label
+my_label = tk.Label(text="I am a label", font=("Arial", 24, "bold"))
+my_label["text"] = "New text"
+my_label.config(text="New text")
+# my_label.pack()
+my_label.grid(column=0, row=0)
+
+# Input
+input = tk.Entry(width=10)
+# input.pack()
+input.grid(column=4, row=3)
+
+# Button
 button = tk.Button(text="Click me", command=button_clicked)
-button.pack()
+# button.pack()
+button.grid(column=1, row=1)
 
-
-windows.mainloop()
+# New Button
+new_button = tk.Button(text="Click me", command=button_clicked)
+# button.pack()
+new_button.grid(column=2, row=0)
 
 
 # def sum(*args):
@@ -54,3 +61,5 @@ windows.mainloop()
 
 # my_car = Car(make="Nissan", color="Black", seats=4)
 # print(my_car.model)
+
+windows.mainloop()
