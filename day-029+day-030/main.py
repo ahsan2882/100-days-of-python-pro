@@ -7,6 +7,12 @@ import io
 import json
 import pyperclip
 
+
+def clear_all_fields():
+    website_entry.delete(0, 'end')
+    email_entry.delete(0, 'end')
+    password_entry.delete(0, 'end')
+
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
 
@@ -14,6 +20,7 @@ def generate_pwd():
     generated_password = pg.genrate_password(random.randint(8, 16))
     password_entry.delete(0, 'end')
     password_entry.insert(0, generated_password)
+    hide_password()
     pyperclip.copy(generated_password)
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 
@@ -32,14 +39,20 @@ except FileExistsError:
 
 
 def getDataAndSave():
+
+    # get data from the entries
     website = website_entry.get()
     username = email_entry.get()
     password = password_entry.get()
+    # create a dictionary to store the data
     new_data = {
-        website: {
-            'email': username,
-            'password': password
-        }
+        'website': website,
+        'records': [
+            {
+                'email': username,
+                'password': password
+            }
+        ]
     }
     if website == "" or username == "" or password == "":
         messagebox.showerror(
@@ -49,25 +62,57 @@ def getDataAndSave():
             title=website, message=f"These are the details entered: \nEmail: {username} \nPassword: {password} \nIs it ok to save?\n(Password copied to clipboard!)")
     if confirm:
         try:
+            # read the file
             with open(FILE_PATH, 'r') as secure_file:
                 secure_file_data = json.load(secure_file)
-        except (FileNotFoundError, json.decoder.JSONDecodeError):
+        except (FileNotFoundError, json.decoder.JSONDecodeError) as error:
+            # create a new file
+            print(error)
             with open(FILE_PATH, 'w') as secure_file:
                 data = json.dumps(new_data, indent=4)
                 secure_file.write(f'[{data}]')
         else:
-            with open(FILE_PATH, 'w') as secure_file:
+            # append the data to the file
+            # search for website in the file
+            siteExists = False
+            for data in secure_file_data:
+                if website == data['website']:
+                    siteExists = True
+                    records = data['records']
+                    userExists = False
+                    for record in records:
+                        if username == record['email']:
+                            userExists = True
+                            option = messagebox.askyesno(
+                                title='Duplicate', message=f"Email: {username} \nPassword: {password}\nDo you want to update this data?"
+                            )
+                            if option:
+                                record['password'] = password
+                                pyperclip.copy(password)
+                            clear_all_fields()
+                            break  # break loop when user found
+                    if not userExists:
+                        records.append(
+                            {
+                                'email': username,
+                                'password': password
+                            }
+                        )
+                        pyperclip.copy(password)
+                    break  # break loop when website found
+            if not siteExists:
                 secure_file_data.append(new_data)
+            # if website not found in the file, add the data
+            with open(FILE_PATH, 'w') as secure_file:
                 data = json.dumps(secure_file_data, indent=4)
                 secure_file.write(data)
         finally:
-            website_entry.delete(0, 'end')
-            email_entry.delete(0, 'end')
-            password_entry.delete(0, 'end')
+            clear_all_fields()
             website_entry.focus()
 
 
-def search_password():
+def search_data():
+    """search in the file for the website name and display the data"""
     site = website_entry.get()
     if site == "":
         messagebox.showerror(
@@ -160,7 +205,7 @@ website_label.grid(column=0, row=1)
 website_entry = Entry(width=50)
 website_entry.focus()
 website_entry.grid(column=1, row=1, sticky="EW", pady=2)
-search_button = Button(text="Search", width=15, command=search_password)
+search_button = Button(text="Search", width=15, command=search_data)
 search_button.grid(column=2, row=1, padx=2, sticky="EW")
 
 email_label = Label(text="Email/Username:")
