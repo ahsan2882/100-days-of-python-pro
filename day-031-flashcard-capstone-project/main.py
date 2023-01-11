@@ -14,6 +14,12 @@ DATA_FILE_PATH = Path(
     'french_words.csv'
 ).resolve()
 
+WORDS_TO_LEARN_FILE_PATH = Path(
+    Path(__file__).parent.resolve(),
+    'data',
+    'words_to_learn.csv'
+).resolve()
+
 CARD_BACK_PATH = Path(
     Path(__file__).parent.resolve(),
     'images',
@@ -40,9 +46,15 @@ UNKNOWN_ANSWER_BUTTON_IMAGE_PATH = Path(
 
 new_word = {}
 timer = None
+words_to_learn = {}
 
-df = pd.read_csv(DATA_FILE_PATH)
-words_to_learn = df.to_dict(orient="records")
+try:
+    data = pd.read_csv(WORDS_TO_LEARN_FILE_PATH)
+except FileNotFoundError:
+    original_data = pd.read_csv(DATA_FILE_PATH)
+    data = original_data
+finally:
+    words_to_learn = data.to_dict(orient="records")
 
 
 def flip_card():
@@ -61,6 +73,13 @@ def pick_word():
     canvas.itemconfig(card_title, text="French", fill="black")
     canvas.itemconfig(card_word, text=new_word_french, fill="black")
     timer = window.after(3000, flip_card)
+
+
+def is_known():
+    words_to_learn.remove(new_word)
+    df = pd.DataFrame(words_to_learn)
+    df.to_csv(WORDS_TO_LEARN_FILE_PATH, index=False)
+    pick_word()
 
 
 window = Tk()
@@ -82,7 +101,7 @@ card_word = canvas.create_text(400, 263, text="", font=BOLD_FONT)
 canvas.grid(column=0, row=0, columnspan=2)
 
 button_right = Button(image=correct_answer_icon,
-                      highlightthickness=0, command=pick_word)
+                      highlightthickness=0, command=is_known)
 button_right.grid(column=1, row=1)
 
 button_wrong = Button(image=unknown_answer_icon,
