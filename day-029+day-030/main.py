@@ -111,39 +111,89 @@ def getDataAndSave():
             website_entry.focus()
 
 
+def update(username: str, password: str):
+    email_entry.delete(0, 'end')
+    email_entry.insert(0, username)
+    password_entry.delete(0, 'end')
+    password_entry.insert(0, password)
+    website_entry.config(state="disabled")
+    add_entry_button.config(
+        text="Update", command=updateData)
+
+
+def search(website: str, **kwargs):
+    with open(FILE_PATH, 'r') as secure_file:
+        secure_file_data = json.load(secure_file)
+        for data in secure_file_data:
+            if website == data['website']:
+                records = data['records']
+                if len(records) == 1:
+                    username = records[0]['email']
+                    password = records[0]['password']
+                    option = messagebox.askyesno(
+                        title=website, message=f"Email: {username}, Password: {password}\nDo you want to update this data?")
+                    if option:
+                        update(username, password)
+                        pyperclip.copy(password)
+                    else:
+                        pyperclip.copy(password)
+                else:
+                    username = kwargs.get('username')
+                    if username != None:
+                        for record in records:
+                            if username == record['email']:
+                                password = record['password']
+                                option = messagebox.askyesno(
+                                    title=website, message=f"Email: {username}, Password: {password}\nDo you want to update this data?")
+                                if option:
+                                    update(username, password)
+                                    pyperclip.copy(password)
+                                else:
+                                    pyperclip.copy(password)
+                                break
+                break
+
+
 def search_data():
     """search in the file for the website name and display the data"""
     site = website_entry.get()
+    username = email_entry.get()
     if site == "":
         messagebox.showerror(
             title="Oops", message="Please enter the website name to search!")
     else:
-        with open(FILE_PATH, 'r') as secure_file:
-            secure_file_data = json.load(secure_file)
-            try:
-                for data in secure_file_data:
-                    if site in data:
-                        username = data[site]['email']
-                        password = data[site]['password']
-                        option = messagebox.askyesno(
-                            title=site, message=f"Email: {username} \nPassword: {password}\nDo you want to update this data?")
-                        if option:
-                            email_entry.delete(0, 'end')
-                            email_entry.insert(0, data[site]['email'])
-                            password_entry.delete(0, 'end')
-                            password_entry.insert(0, data[site]['password'])
-                            website_entry.config(state="disabled")
-                            add_entry_button.config(
-                                text="Update", command=updateData)
-                        else:
-                            pyperclip.copy(data[site]['password'])
-                        break
-                    else:
-                        raise KeyError("No details for the website exists!")
-            except KeyError as error:
-                print(error)
-                messagebox.showerror(
-                    title="Oops", message="No details for the website exists!")
+        if username != "":
+            # search for the website and username
+            search(site, username=username)
+            pass
+        else:
+            search(site)
+        # with open(FILE_PATH, 'r') as secure_file:
+        #     secure_file_data = json.load(secure_file)
+        #     try:
+        #         for data in secure_file_data:
+        #             if site in data:
+        #                 username = data[site]['email']
+        #                 password = data[site]['password']
+        #                 option = messagebox.askyesno(
+        #                     title=site, message=f"Email: {username} \nPassword: {password}\nDo you want to update this data?")
+        #                 if option:
+        #                     email_entry.delete(0, 'end')
+        #                     email_entry.insert(0, data[site]['email'])
+        #                     password_entry.delete(0, 'end')
+        #                     password_entry.insert(0, data[site]['password'])
+        #                     website_entry.config(state="disabled")
+        #                     add_entry_button.config(
+        #                         text="Update", command=updateData)
+        #                 else:
+        #                     pyperclip.copy(data[site]['password'])
+        #                 break
+        #             else:
+        #                 raise KeyError("No details for the website exists!")
+        #     except KeyError as error:
+        #         print(error)
+        #         messagebox.showerror(
+        #             title="Oops", message="No details for the website exists!")
 
 
 def updateData():
