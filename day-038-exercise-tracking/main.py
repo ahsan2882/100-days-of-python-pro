@@ -43,7 +43,6 @@ nutritionix_response = requests.post(url=f"{NUTRITIONIX_ENDPOINT}/natural/exerci
                                      headers=exersise_headers, json=excersise_params).json()['exercises']
 
 for exercise in nutritionix_response:
-    print(exercise)
     sheety_data = {
         'workout': {
             'date': dt.now().strftime('%d/%m/%Y'),
@@ -56,11 +55,3 @@ for exercise in nutritionix_response:
     sheety_response = requests.post(
         url=SHEETY_ENDPOINT, headers=SHEETY_HEADER, json=sheety_data
     ).json()
-    print(sheety_response)
-# sheety_params = {
-#     'date': dt.now().strftime('%d/%m/%Y'),
-#     'time': dt.now().strftime('%X'),
-#     'exercise': nutritionix_response['exercises'][0]['name'].title(),
-# }
-# sheety_response = requests.post(
-#     url=SHEETY_ENDPOINT, headers=SHEETY_HEADER, json=response.json())
