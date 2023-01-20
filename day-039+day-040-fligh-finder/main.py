@@ -73,11 +73,11 @@ def get_min_price():
 
 def check_cheapest_flight():
     for destination in sheet_data:
-        flight = flighSearch.check_flights(
+        flight = flightSearch.check_flights(
             ORIGIN_CITY_IATA,
             destination["iataCode"],
-            from_time=today,
-            to_time=six_month_from_today
+            from_time=datetime.now().strftime("%d/%m/%Y"),
+            to_time=(datetime.now() + timedelta(days=(7))).strftime("%d/%m/%Y")
         )
         if flight.price < destination["lowestPrice"]:
             notificationManager.send_email(
