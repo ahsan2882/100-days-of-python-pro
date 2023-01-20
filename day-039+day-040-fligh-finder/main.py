@@ -69,6 +69,7 @@ def get_min_price():
 
     dataManager.upload_min_price(min_price, cities=sheet_data)
     sheet_data = dataManager.get_destination_data()
+    check_cheapest_flight()
 
 
 def check_cheapest_flight():
@@ -77,7 +78,7 @@ def check_cheapest_flight():
             ORIGIN_CITY_IATA,
             destination["iataCode"],
             from_time=datetime.now().strftime("%d/%m/%Y"),
-            to_time=(datetime.now() + timedelta(days=(7))).strftime("%d/%m/%Y")
+            to_time=(datetime.now() + timedelta(days=7)).strftime("%d/%m/%Y")
         )
         if flight.price < destination["lowestPrice"]:
             notificationManager.send_email(
@@ -85,7 +86,6 @@ def check_cheapest_flight():
 
 
 get_min_price()
-check_cheapest_flight()
 schedule.every(7).days.do(check_cheapest_flight)
 schedule.every(30).days.do(get_min_price)
 
