@@ -20,12 +20,12 @@ class NotificationManager:
     def __init__(self):
         pass
 
-    def send_email(self, message):
+    def send_email(self, email, message):
         with smtplib.SMTP("smtp.gmail.com") as connection:
             connection.starttls()
             connection.login(user=EMAIL, password=PASSWORD)
             email_content = f"Subject:Low Price Alert\n\n{message}"
             connection.sendmail(
                 from_addr=EMAIL,
-                to_addrs=EMAIL,
+                to_addrs=email,
                 msg=email_content.encode('utf-8'))

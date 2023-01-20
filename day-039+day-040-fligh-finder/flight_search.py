@@ -66,6 +66,8 @@ class FlightSearch:
                 out_date="0000",
             )
             return flightData
+        except KeyError:
+            print(response.json())
         flightData = FlightData(
             price=round(data["price"]),
             origin_city=data["route"][0]["cityFrom"],

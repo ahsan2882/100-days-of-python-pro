@@ -19,36 +19,24 @@ class DataManager:
     # This class is responsible for talking to the Google Sheet.
 
     def __init__(self):
-        self.destination_data = {}
+        pass
 
-    def get_destination_data(self):
-        response = requests.get(url=SHEETY_ENDPOINT)
-        data = response.json()
-        self.destination_data = data["prices"]
-        # pprint(data)
-        return self.destination_data
+    def get_destination_data(self, page):
+        return requests.get(
+            url=f"{SHEETY_ENDPOINT}/{page}").json()[f'{page}']
+
+    def get_users(self):
+        return requests.get(url=f"{SHEETY_ENDPOINT}/users").json()["users"]
 
     def update_destination_code(self, city):
         new_data = {
-            "price": {
+            "otherprice": {
                 "iataCode": city["iataCode"]
             }
         }
         response = requests.put(
-            url=f"{SHEETY_ENDPOINT}/{city['id']}",
+            url=f"{SHEETY_ENDPOINT}/otherPrices/{city['id']}",
             json=new_data
         )
         print(response.text)
-
-    def upload_min_price(self, prices, cities):
-        for city in cities:
-            new_data = {
-                'price': {
-                    'lowestPrice': prices[city['iataCode']]
-                }
-            }
-            response = requests.put(
-                url=f"{SHEETY_ENDPOINT}/{city['id']}",
-                json=new_data
-            )
-            print(response.text)
+        return None
