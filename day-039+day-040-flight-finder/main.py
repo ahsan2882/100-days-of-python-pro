@@ -15,5 +15,16 @@ for data in sheet_data:
         data["iataCode"] = flightSearch.get_destination_code(data["city"])
         dataManager.update_destination_code(city=data)
 
+
+def user_check_cheapest_flight(user):
+
+    user.check_cheapest_flight()
+
+
 for user_data in users:
     user = User(user_data, flightSearch)
+    schedule.every(5).days.do(user_check_cheapest_flight, user)
+
+while True:
+    schedule.run_pending()
+    time.sleep(24*60*60)
