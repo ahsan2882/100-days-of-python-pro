@@ -44,7 +44,7 @@ def get_min_price():
     else:
         step_size = 300
     for destination in sheet_data:
-        for i in range(1, 12*30*2, step_size):
+        for i in range(0, (7*52*2)+1, step_size):
             flight = flightSearch.check_flights(
                 ORIGIN_CITY_IATA,
                 destination["iataCode"],
@@ -53,7 +53,7 @@ def get_min_price():
                 to_time=(datetime.now() + timedelta(days=(i+7))
                          ).strftime("%d/%m/%Y")
             )
-            print(i, flight.destination_airport, flight.price)
+            print(f"{i}-{i+7}", flight.destination_airport, flight.price)
             if flight.price != 0:
                 if min_price[flight.destination_airport] == 0:
                     min_price[flight.destination_airport] = flight.price
