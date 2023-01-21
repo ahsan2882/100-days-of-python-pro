@@ -34,7 +34,7 @@ class User:
                 )
                 print(flight.destination_airport, flight.price)
                 if flight.price <= destination["lowestPrice"] and flight.price != 0:
-                    bookingLink = f'https://www.google.com/travel/flights?q=Flights%20to%20{flight.destination_airport}%20from%20{flight.origin_airport}%20on%20{flight.out_date}'
+                    bookingLink = f'https://www.google.com/travel/flights?q=Flights%20to%20{flight.destination_airport}%20from%20{flight.origin_airport}%20on%20{flight.out_date}%20oneway'
                     self.notificationManager.send_email(
                         message=f"Low price alert! Only {flight.price}/= PKR to fly from {flight.origin_city}-{flight.origin_airport} to {flight.destination_city}-{flight.destination_airport}, on {flight.out_date}.\nClick the link  below to book your flight: \n{bookingLink}",
                         email=self.email
