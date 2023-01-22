@@ -1,0 +1,12 @@
+h1,
+h3 {
+  color: #66bfbf;
+  font-size: 2em;
+  text-align: center;
+  font-family: "Lobster", cursive;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
