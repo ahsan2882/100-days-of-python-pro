@@ -15,7 +15,7 @@ def home():
 @app.route('/post/<int:post_id>')
 def get_post(post_id):
     requested_post = None
-    for blog_post in posts:
+    for blog_post in all_posts:
         if blog_post["id"] == post_id:
             requested_post = blog_post
     return render_template("post.html", post=requested_post)
