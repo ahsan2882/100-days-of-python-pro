@@ -55,10 +55,10 @@ def home():
     return render_template("index.html")
 
 
-@app.route('/add',methods=['POST'])
+@app.route('/add',methods=['POST','GET'])
 def add_cafe():
     form = CafeForm()
-    if form.validate_on_submit():
+    if form.validate_on_submit() and request.method == 'POST':
         with open(CAFE_DATA_PATH, 'a', encoding='utf-8', newline='') as csv_file:
             csv_writer = csv.writer(csv_file, delimiter=',')
             csv_writer.writerow([form.cafe.data, form.location.data, form.open_time.data, form.closing_time.data, form.coffee_rating.data, form.wifi_rating.data, form.power_rating.data])

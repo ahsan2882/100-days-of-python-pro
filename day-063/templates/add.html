@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    {{ bootstrap.load_css() }}
+    <title>Add Book</title>
+</head>
+
+<body>
+    {% from 'bootstrap4/form.html' import render_form %}
+
+    {{ render_form(form,novalidate=True,action=url_for('add'),method='post',extra_classes='col-4 mx-auto') }}
+    {{ bootstrap.load_js() }}
+</body>
+
+</html>
