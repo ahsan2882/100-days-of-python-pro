@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 from dotenv import load_dotenv
-from wtforms import StringField
+from wtforms import StringField, PasswordField, SubmitField
 from flask_wtf import FlaskForm
 from flask import Flask, render_template
 
@@ -17,8 +17,9 @@ app = Flask(__name__)
 
 
 class LoginForm(FlaskForm):
-    email = StringField('Email')
-    password = StringField('Password')
+    email = StringField(label='Email')
+    password = PasswordField(label='Password')
+    submit = SubmitField(label='Log In')
 
 
 app.secret_key = APP_SECRET_KEY
