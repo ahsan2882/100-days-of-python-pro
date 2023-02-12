@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 from flask_wtf import FlaskForm
+from flask_bootstrap import Bootstrap5
 from flask import Flask, render_template
 from wtforms.validators import DataRequired, Email, Length
 from wtforms import StringField, PasswordField, SubmitField
@@ -15,6 +16,7 @@ load_dotenv(DOTENV_PATH)
 APP_SECRET_KEY = os.getenv('APP_SECRET_KEY')
 
 app = Flask(__name__)
+bootstrap = Bootstrap5(app)
 
 
 class LoginForm(FlaskForm):
