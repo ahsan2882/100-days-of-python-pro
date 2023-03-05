@@ -1,6 +1,5 @@
 from bs4 import BeautifulSoup
 import requests
-from pprint import pprint
 
 # from pathlib import Path
 # SITE_PATH = Path(

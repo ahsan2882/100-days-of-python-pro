@@ -1,6 +1,6 @@
 
 import os
-import sqlite3
+# import sqlite3
 import requests
 from pathlib import Path
 from dotenv import load_dotenv

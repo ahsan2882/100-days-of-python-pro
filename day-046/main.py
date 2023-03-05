@@ -3,7 +3,6 @@ import time
 import requests
 from tqdm import tqdm
 from pathlib import Path
-from pprint import pprint
 from spotipy import Spotify
 from dotenv import load_dotenv
 from bs4 import BeautifulSoup as bs

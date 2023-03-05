@@ -4,7 +4,6 @@ import smtplib
 from pathlib import Path
 from dotenv import load_dotenv
 from selenium import webdriver
-from selenium.common.exceptions import StaleElementReferenceException
 
 DOTENV_PATH = Path(
     Path(__file__).parent.resolve(),

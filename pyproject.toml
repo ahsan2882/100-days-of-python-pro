@@ -1,0 +1,3 @@
+[tool.ruff]
+line-length=600
+ignore=['E722']

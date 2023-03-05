@@ -1,4 +1,4 @@
-from random import randint, choice
+from random import randint
 from turtle import Turtle, Screen
 
 t = Turtle()

@@ -1,4 +1,3 @@
-import time
 from data_manager import DataManager
 from flight_search import FlightSearch
 from datetime import datetime, timedelta

@@ -1,4 +1,4 @@
-from PIL import Image
+# from PIL import Image
 from pathlib import Path
 from turtle import Turtle, Screen
 

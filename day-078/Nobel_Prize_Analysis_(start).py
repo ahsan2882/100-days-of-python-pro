@@ -754,8 +754,8 @@ df_data
 # In[57]:
 
 
-display(df_data.nlargest(n=1, columns='winning_age'))
-display(df_data.nsmallest(n=1, columns='winning_age'))
+print(df_data.nlargest(n=1, columns='winning_age'))
+print(df_data.nsmallest(n=1, columns='winning_age'))
 df_data.describe()
 
 

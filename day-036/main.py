@@ -59,7 +59,7 @@ def get_news_data(difference: float) -> list:
     news_response.raise_for_status()
     news_data = news_response.json()['articles'][0:3]
     return [
-        f"{STOCK_NAME}:{up_down}{diff_percent}%\nHeadline: {article['title']}. \nBrief:{article['description']}"
+        f"{STOCK_NAME}:{up_down}{difference}%\nHeadline: {article['title']}. \nBrief:{article['description']}"
         for article in news_data
     ]
 

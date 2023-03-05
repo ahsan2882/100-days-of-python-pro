@@ -41,7 +41,7 @@ for i in range(5000):
     t.color(generate_random_color())
     while True:
         new_dir = choice(range(0, 360, 90))
-        if prev_dir != None:
+        if prev_dir is not None:
             if new_dir != prev_dir and new_dir != 180:
                 break
         else:

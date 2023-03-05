@@ -3,7 +3,6 @@ from pathlib import Path
 import password_generator as pg
 import random
 import os
-import io
 import json
 import pyperclip
 
@@ -139,7 +138,7 @@ def search(website: str, **kwargs):
                         pyperclip.copy(password)
                 else:
                     username = kwargs.get('username')
-                    if username != None:
+                    if username is not None:
                         for record in records:
                             if username == record['email']:
                                 password = record['password']

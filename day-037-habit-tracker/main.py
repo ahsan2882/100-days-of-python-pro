@@ -60,7 +60,7 @@ def create_pixela_user():
         'agreeTermsOfService': 'yes',
         'notMinor': 'yes'
     }
-    create_user = repeat_request(
+    repeat_request(
         post_response, url=PIXELA_ENDPOINT, json=create_user_params)
 
 
@@ -75,7 +75,7 @@ def create_pixela_graph(graph_id: str, graph_name: str, measurement_unit: str, m
         'type': measurement_type,
         'color': graph_color
     }
-    create_graph = repeat_request(
+    repeat_request(
         post_response, url=f"{PIXELA_ENDPOINT}/{USERNAME}/graphs", json=create_graph_params, headers=HEADERS)
 
 
@@ -104,7 +104,7 @@ def updatePixel(date: str, quantity: str, graph_id: str):
     update_pixel_params = {
         'quantity': quantity
     }
-    update_pixel = repeat_request(
+    repeat_request(
         put_response, url=f"{PIXELA_ENDPOINT}/{USERNAME}/graphs/{graph_id}/{date}", json=update_pixel_params, headers=HEADERS)
 
 
@@ -112,7 +112,7 @@ def updatePixel(date: str, quantity: str, graph_id: str):
 
 
 def deletePixel(date: str, graph_id: str):
-    delete_pixel = repeat_request(
+    repeat_request(
         delete_response, url=f"{PIXELA_ENDPOINT}/{USERNAME}/graphs/{graph_id}/{date}", headers=HEADERS)
 
 

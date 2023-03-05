@@ -1,4 +1,4 @@
-from tkinter import Tk, Canvas, PhotoImage, Button, Entry, Label
+from tkinter import Tk, Canvas, PhotoImage, Button
 from pathlib import Path
 import pandas as pd
 from random import choice

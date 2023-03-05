@@ -3,6 +3,7 @@ import time
 import smtplib
 import requests
 import schedule
+from pathlib import Path
 from datetime import datetime
 from dotenv import load_dotenv
 

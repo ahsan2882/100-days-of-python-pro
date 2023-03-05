@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 from dotenv import load_dotenv
-from selenium import webdriver
+# from selenium import webdriver
 
 DOTENV_PATH = Path(
     Path(__file__).parent.resolve(),
